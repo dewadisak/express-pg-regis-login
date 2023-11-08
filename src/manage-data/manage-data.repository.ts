@@ -15,14 +15,16 @@ export class ManageDataRepository {
   }
 
     public async getAllData():Promise<any>{
-      try{
-        const data  = await this.client.query(`Select * from users_db`);
-        console.log("data",data.rows)
-        const result = data.rows;
-        return result;
-      }catch(err) {
-        console.log(err)
-
+      try {
+        const queryResult = await this.client.query('Select * from users_db');
+        const data = queryResult.rows;
+        console.log('data', data);
+        return data;
+      } catch (err) {
+        console.error(err);
+        throw err; 
+      } finally {
+        this.client.end();
       }
  
   }

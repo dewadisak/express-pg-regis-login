@@ -3,7 +3,20 @@ import { IRegister } from "./model/register.interface";
 
 export class RegisterRepository {
   private client: any;
+  private pool: any;
   constructor() {
+    // this.pool = new Pool({
+    //   host: 'dpg-cl5762c72pts739tfp60-a.oregon-postgres.render.com',
+    //   user: 'test_vv5q_user',
+    //   port: 5432,
+    //   password: '0e4aJJF7sAXJ4pHj3fyFUBbcSdRZ26CQ',
+    //   database: 'test_vv5q',
+    //   ssl: true,
+    //   max: 20,
+    //   idleTimeoutMillis: 30000,
+    //   connectionTimeoutMillis: 2000,
+    // })
+    // this.pool.connect();
     this.client = new Client({
       host: 'dpg-cl5762c72pts739tfp60-a.oregon-postgres.render.com',
       user: 'test_vv5q_user',
@@ -13,6 +26,10 @@ export class RegisterRepository {
       ssl: true,
     })
     this.client.connect();
+  }
+
+  public init(): Promise<any> {
+    return this.client.connect(); 
   }
 
   public async getEmail(email: string):Promise<any>{
@@ -26,6 +43,8 @@ export class RegisterRepository {
       return result;
     } catch(err){
       console.log(err)
+    } finally {
+      this.client.end();
     }
   }
 
@@ -38,6 +57,8 @@ export class RegisterRepository {
       return result;
     } catch(err){
       console.log(err)
+    } finally {
+      this.client.end();
     }
 
   }
