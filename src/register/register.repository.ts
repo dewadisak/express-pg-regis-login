@@ -11,10 +11,8 @@ export class RegisterRepository {
       password: '0e4aJJF7sAXJ4pHj3fyFUBbcSdRZ26CQ',
       database: 'test_vv5q',
       ssl: true,
-      connectionTimeoutMillis:600000
     })
     this.client.connect();
-
   }
 
   public async getEmail(email: string):Promise<any>{
@@ -25,7 +23,6 @@ export class RegisterRepository {
       };
       const data  = await this.client.query(query);
       const result = data.rows;
-      this.client.end;
       return result;
     } catch(err){
       console.log(err)
@@ -38,7 +35,6 @@ export class RegisterRepository {
       'VALUES ($1, $2, $3, $4, $5, $6)',
       [body.name, body.phoneNumber, body.email, body.password, body.ip, body.registerDate]);
       const result = data.rows;
-      this.client.end;
       return result;
     } catch(err){
       console.log(err)

@@ -10,7 +10,6 @@ export class LoginRepository {
       password: '0e4aJJF7sAXJ4pHj3fyFUBbcSdRZ26CQ',
       database: 'test_vv5q',
       ssl: true,
-      connectionTimeoutMillis:600000
     })
     this.client.connect();
   }
@@ -23,7 +22,6 @@ export class LoginRepository {
       };
       const data  = await this.client.query(query);
       const result = data.rows;
-      this.client.end;
       return result;
     } catch(err){
       console.log(err)

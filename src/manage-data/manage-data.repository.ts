@@ -1,4 +1,5 @@
 import { Client } from "pg";
+
 export class ManageDataRepository {
   private client: any;
   constructor() {
@@ -9,14 +10,12 @@ export class ManageDataRepository {
       password: '0e4aJJF7sAXJ4pHj3fyFUBbcSdRZ26CQ',
       database: 'test_vv5q',
       ssl: true,
-      connectionTimeoutMillis:600000
     })
     this.client.connect();
   }
 
     public async getAllData():Promise<any>{
       try{
-        console.log("ta")
         const data  = await this.client.query(`Select * from users_db`);
         console.log("data",data.rows)
         const result = data.rows;
