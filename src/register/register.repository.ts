@@ -28,9 +28,7 @@ export class RegisterRepository {
       return result;
     } catch(err){
       console.log(err)
-    } finally {
-      // this.client.end();
-    }
+    } 
   }
 
   public async createRegister(body: IRegister):Promise<any>{
@@ -42,9 +40,7 @@ export class RegisterRepository {
       return result;
     } catch(err){
       console.log(err)
-    } finally {
-      this.client.end();
-    }
+    } 
 
   }
   public closeConnection() {

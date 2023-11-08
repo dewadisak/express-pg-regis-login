@@ -23,10 +23,13 @@ export class ManageDataRepository {
       } catch (err) {
         console.error(err);
         throw err; 
-      } finally {
-        this.client.end();
       }
- 
+
   }
+  public closeConnection() {
+    this.client.end();
+  }
+ 
+
 
 }

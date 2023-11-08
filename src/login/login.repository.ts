@@ -30,6 +30,9 @@ export class LoginRepository {
     } 
     
   }
+  public closeConnection() {
+    this.client.end();
+  }
 
  
 
