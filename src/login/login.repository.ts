@@ -1,18 +1,6 @@
-import { Client } from "pg";
-
+import pool from "../database/pg-config";
 export class LoginRepository {
-  private client: any;
-  private pool: any;
   constructor() {
-    this.client = new Client({
-      host: 'dpg-cl5762c72pts739tfp60-a.oregon-postgres.render.com',
-      user: 'test_vv5q_user',
-      port: 5432,
-      password: '0e4aJJF7sAXJ4pHj3fyFUBbcSdRZ26CQ',
-      database: 'test_vv5q',
-      ssl: true,
-    })
-    this.client.connect();
     
   }
 
@@ -22,12 +10,10 @@ export class LoginRepository {
         text: 'SELECT * FROM users_db WHERE email = $1',
         values: [email],
       };
-      const data  = await this.client.query(query);
+      const data  = await pool.query(query);
       const result = data.rows;
-      await this.client.end();
       return result;
     } catch(err){
-      await this.client.end();
       console.log(err)
     } 
     
