@@ -27,9 +27,7 @@ export class LoginRepository {
       return result;
     } catch(err){
       console.log(err)
-    } finally {
-      this.client.end();
-    }
+    } 
     
   }
 
