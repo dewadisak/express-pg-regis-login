@@ -24,15 +24,15 @@ export class LoginRepository {
       };
       const data  = await this.client.query(query);
       const result = data.rows;
+      await this.client.end();
       return result;
     } catch(err){
+      await this.client.end();
       console.log(err)
     } 
     
   }
-  public closeConnection() {
-    this.client.end();
-  }
+
 
  
 

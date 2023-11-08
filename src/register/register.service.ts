@@ -38,11 +38,9 @@ export class RegisterService {
 
       await this.registerRepository.createRegister(data);
       console.log('😊')
-      this.registerRepository.closeConnection();
       return;
 
     } catch (err) {
-      this.registerRepository.closeConnection() 
       console.log(err);
     }
 

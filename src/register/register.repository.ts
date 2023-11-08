@@ -36,15 +36,14 @@ export class RegisterRepository {
       const data  = await this.client.query('INSERT INTO users_db (name, phone_number, email, password, ip, register_date) ' +
       'VALUES ($1, $2, $3, $4, $5, $6)',
       [body.name, body.phoneNumber, body.email, body.password, body.ip, body.registerDate]);
+      await this.client.end();
       const result = data.rows;
       return result;
     } catch(err){
+      await this.client.end();
       console.log(err)
     } 
 
-  }
-  public closeConnection() {
-    this.client.end();
   }
 
 

@@ -9,7 +9,6 @@ export class ManageDataService {
 
   public async getAllData() {
     const result = await this.manageDataRepository.getAllData()
-    this.manageDataRepository.closeConnection();
     return result;
   }
 

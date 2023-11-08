@@ -17,12 +17,13 @@ export class ManageDataRepository {
     public async getAllData():Promise<any>{
       try {
         const queryResult = await this.client.query('Select * from users_db');
+        await this.client.end();
         const data = queryResult.rows;
         console.log('data', data);
         return data;
       } catch (err) {
+        await this.client.end();
         console.error(err);
-        throw err; 
       }
 
   }

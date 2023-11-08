@@ -11,7 +11,6 @@ export class LoginService {
   public async processLogin(body: any){
     try{
       const data = await this.loginRepository.getDataByEmail(body.email);
-      this.loginRepository.closeConnection();
       if(!data?.length) return response.status(400).send('Not found user, Please register');
       const decryptedPass = data[0].password;
       const encryptedPass = await bcrypt.compareSync(body.password, decryptedPass);
