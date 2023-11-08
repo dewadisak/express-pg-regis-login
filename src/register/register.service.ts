@@ -15,7 +15,7 @@ export class RegisterService {
   public async register(body: IRegister) {
     try {
       const email = await this.registerRepository.getEmail(body.email);
-      if(email.length) return response.status(400).send('User already exist!!');
+      if(email?.length) return response.status(400).send('User already exist!!');
       if (!body.ip) {
         const ipAddress = await this.getIP();
         body.ip = ipAddress;
@@ -37,9 +37,12 @@ export class RegisterService {
       }
 
       await this.registerRepository.createRegister(data);
+      console.log('😊')
+      this.registerRepository.closeConnection();
       return;
 
     } catch (err) {
+      this.registerRepository.closeConnection() 
       console.log(err);
     }
 
