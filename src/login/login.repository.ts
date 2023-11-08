@@ -9,7 +9,8 @@ export class LoginRepository {
       port: 5432,
       password: '0e4aJJF7sAXJ4pHj3fyFUBbcSdRZ26CQ',
       database: 'test_vv5q',
-      ssl: true
+      ssl: true,
+      connectionTimeoutMillis:600000
     })
     this.client.connect();
   }
