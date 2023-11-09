@@ -10,13 +10,24 @@ export class LoginService {
 
   public async processLogin(body: any){
     try{
+
       const data = await this.loginRepository.getDataByEmail(body.email);
-      if(!data?.length) return response.status(400).send('Not found user, Please register');
+      if(!data?.length){
+        const result = {
+          success: false,
+          message:'invalid'
+        }
+        return result;
+      } 
       const decryptedPass = data[0].password;
       const encryptedPass = await bcrypt.compareSync(body.password, decryptedPass);
       console.log('data', decryptedPass, body.password);
       if(encryptedPass){
-        return response.status(200).send("login success")
+        const result = {
+          success: true,
+          message:'success'
+        }
+        return result;
       } else{
         return response.status(400).send("invalid email or password")
       }

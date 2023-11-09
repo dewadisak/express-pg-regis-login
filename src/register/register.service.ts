@@ -1,6 +1,5 @@
 import axios from "axios";
 import bcrypt from "bcrypt";
-import { response } from "express";
 import { IRegister } from "./model/register.interface";
 import { RegisterRepository } from "./register.repository";
 
@@ -15,7 +14,13 @@ export class RegisterService {
   public async register(body: IRegister) {
     try {
       const email = await this.registerRepository.getEmail(body.email);
-      if(email?.length) return response.status(400).send('User already exist!!');
+      if(email?.length){
+        const result = {
+          success: false,
+          message:'invalid'
+        }
+        return result;
+      }
       if (!body.ip) {
         const ipAddress = await this.getIP();
         body.ip = ipAddress;
@@ -37,9 +42,11 @@ export class RegisterService {
       }
 
       await this.registerRepository.createRegister(data);
-      console.log('😊')
-      return;
-
+      const result = {
+        success: true,
+        message:'success'
+      }
+      return result;
     } catch (err) {
       console.log(err);
     }
