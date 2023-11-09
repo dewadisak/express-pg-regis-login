@@ -14,10 +14,11 @@ export class RegisterService {
   public async register(body: IRegister) {
     try {
       const email = await this.registerRepository.getEmail(body.email);
-      if(email?.length){
+      console.log(email?.length)
+      if (email?.length) {
         const result = {
           success: false,
-          message:'invalid'
+          message: 'invalid'
         }
         return result;
       }
@@ -31,7 +32,7 @@ export class RegisterService {
       }
 
       const decryptedPass = await bcrypt.hash(body.password, 10);
-    
+
       const data: IRegister = {
         name: body.name,
         phoneNumber: body.phoneNumber,
@@ -44,7 +45,7 @@ export class RegisterService {
       await this.registerRepository.createRegister(data);
       const result = {
         success: true,
-        message:'success'
+        message: 'success'
       }
       return result;
     } catch (err) {
